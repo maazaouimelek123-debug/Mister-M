@@ -1,0 +1,17 @@
+# Fichiers de travail / tests (non destinés au dépôt)
+stub*.js
+ui_*.mjs
+*.b64
+amb_*
+as_*
+a4_*
+r_*.jpeg
+im6_*.jpeg
+milkshake*.jpeg
+mojito.jpeg
+jus.jpeg
+panini_zone.jpeg
+bottom_end.jpeg
+shot_*.png
+node_modules/
+.DS_Store
