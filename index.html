@@ -139,10 +139,31 @@ section{padding:90px 20px}
 
 /* ---------- Contact / Footer ---------- */
 #contact{background:var(--noir);color:var(--creme);padding-bottom:40px}
-.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:40px;margin-bottom:60px}
-.contact-grid h4{color:var(--or-clair);font-size:.95rem;margin-bottom:14px;letter-spacing:.1em}
-.contact-grid p,.contact-grid a{color:rgba(246,242,233,.72);font-size:.9rem;display:block;margin-bottom:8px}
-.contact-grid a:hover{color:var(--or-clair)}
+.contact-layout{display:grid;grid-template-columns:1.05fr 1fr;gap:28px;margin-bottom:60px;align-items:stretch}
+.contact-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.c-card{position:relative;background:linear-gradient(160deg,var(--charbon),#151413);border:1px solid rgba(200,162,75,.16);border-radius:var(--radius);padding:24px 22px 22px;transition:transform .25s,border-color .25s,box-shadow .25s;overflow:hidden}
+.c-card::after{content:"";position:absolute;left:0;top:0;height:3px;width:42px;background:var(--or);border-radius:0 0 3px 0;transition:width .35s}
+.c-card:hover{transform:translateY(-4px);border-color:rgba(200,162,75,.45);box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.c-card:hover::after{width:100%}
+.c-ico{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:rgba(200,162,75,.12);border:1px solid rgba(200,162,75,.35);color:var(--or-clair);margin-bottom:16px}
+.c-ico svg{width:22px;height:22px}
+.c-card h4{color:var(--or-clair);font-size:.92rem;margin-bottom:10px;letter-spacing:.12em}
+.c-card p{color:rgba(246,242,233,.74);font-size:.88rem;line-height:1.6;margin-bottom:4px}
+.c-card .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.c-card .tags span{font-size:.72rem;color:var(--creme);background:rgba(246,242,233,.06);border:1px solid rgba(246,242,233,.12);padding:4px 10px;border-radius:999px}
+.c-card .open{display:inline-flex;align-items:center;gap:7px;font-size:.8rem;color:#8fd19e;margin-bottom:8px}
+.c-card .open::before{content:"";width:8px;height:8px;border-radius:50%;background:#5fbf73;box-shadow:0 0 0 4px rgba(95,191,115,.18)}
+.c-card .c-link{display:inline-block;margin-top:10px;font-size:.82rem;font-weight:600;color:var(--or-clair);border-bottom:1px solid rgba(224,196,124,.4);padding-bottom:2px;transition:.2s}
+.c-card .c-link:hover{color:var(--creme);border-color:var(--creme)}
+.map-card{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid rgba(200,162,75,.25);min-height:340px;background:var(--charbon);box-shadow:0 18px 50px rgba(0,0,0,.4)}
+.map-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(1) invert(.9) contrast(.88) sepia(.25)}
+.map-badge{position:absolute;left:16px;bottom:16px;right:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(17,16,16,.88);backdrop-filter:blur(6px);border:1px solid rgba(200,162,75,.3);border-radius:12px;padding:14px 16px}
+.map-badge strong{display:block;color:var(--creme);font-family:'Oswald',sans-serif;letter-spacing:.06em;font-size:1rem}
+.map-badge small{color:rgba(246,242,233,.6);font-size:.78rem}
+.map-badge a{flex-shrink:0;background:var(--or);color:var(--noir);font-weight:700;font-size:.8rem;padding:10px 16px;border-radius:999px;transition:.2s}
+.map-badge a:hover{background:var(--or-clair)}
+@media(max-width:900px){.contact-layout{grid-template-columns:1fr}.map-card{min-height:300px}}
+@media(max-width:520px){.contact-cards{grid-template-columns:1fr}}
 .footer-bar{border-top:1px solid rgba(246,242,233,.12);padding-top:24px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
 .footer-bar p{font-size:.78rem;color:rgba(246,242,233,.45)}
 .footer-bar .staff-link{color:rgba(246,242,233,.35);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;transition:.2s}
@@ -314,25 +335,38 @@ section{padding:90px 20px}
       <span class="script" style="color:var(--or-clair)">On vous attend</span>
       <h2 style="color:var(--creme)">Nous trouver</h2>
     </div>
-    <div class="contact-grid">
-      <div>
-        <h4>Adresse</h4>
-        <p>Mornag, Ben Arous — Tunisie</p>
-        <a href="https://www.google.com/maps/search/?api=1&query=Mister+M+Coffee+Mornag" target="_blank" rel="noopener">Ouvrir dans Google Maps ↗</a>
+    <div class="contact-layout">
+      <div class="contact-cards">
+        <div class="c-card">
+          <div class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+          <h4>Adresse</h4>
+          <p>Mornag, Ben Arous<br>Tunisie</p>
+          <a class="c-link" href="https://www.google.com/maps/search/?api=1&query=Mister+M+Coffee+Mornag" target="_blank" rel="noopener">Itinéraire ↗</a>
+        </div>
+        <div class="c-card">
+          <div class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <h4>Horaires</h4>
+          <span class="open">Ouvert 7 jours / 7</span>
+          <p>Petit déjeuner servi dès l'ouverture</p>
+        </div>
+        <div class="c-card">
+          <div class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h13v4a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 3c0 1.5 1 1.5 1 3M12 3c0 1.5 1 1.5 1 3"/></svg></div>
+          <h4>Sur place</h4>
+          <div class="tags"><span>Salle climatisée</span><span>Grand écran</span><span>Chicha</span><span>Coin famille</span></div>
+        </div>
+        <div class="c-card">
+          <div class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></div>
+          <h4>Commande</h4>
+          <p>Depuis votre table ou à emporter, directement via le panier.</p>
+          <a class="c-link" href="#menu">Voir le menu →</a>
+        </div>
       </div>
-      <div>
-        <h4>Horaires</h4>
-        <p>Ouvert 7 jours / 7</p>
-        <p>Petit déjeuner servi dès l'ouverture</p>
-      </div>
-      <div>
-        <h4>Sur place</h4>
-        <p>Salle climatisée · Grand écran</p>
-        <p>Chicha · Coin famille</p>
-      </div>
-      <div>
-        <h4>Commande</h4>
-        <p>Commandez en ligne depuis votre table ou à emporter via le panier.</p>
+      <div class="map-card">
+        <iframe src="https://www.google.com/maps?q=Mister+M+Coffee+Mornag+Tunisie&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Carte — Mister M Coffee à Mornag"></iframe>
+        <div class="map-badge">
+          <div><strong>MISTER M COFFEE</strong><small>Salon de thé &amp; Restau · Mornag</small></div>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Mister+M+Coffee+Mornag" target="_blank" rel="noopener">Y aller</a>
+        </div>
       </div>
     </div>
     <div class="footer-bar">
