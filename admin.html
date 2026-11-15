@@ -125,6 +125,47 @@ header.admin{position:sticky;top:0;z-index:50;background:rgba(17,16,16,.95);back
 .ordre-actions .annuler:hover{background:var(--rouge);color:#fff}
 #ordersEmpty{display:none;text-align:center;color:var(--texte-doux);padding:60px 0}
 
+/* Navigation vues */
+.view-tabs{display:flex;gap:6px;margin-bottom:22px;border-bottom:1px solid rgba(43,38,32,.12)}
+.view-tab{padding:12px 18px;font-family:'Oswald',sans-serif;font-size:.95rem;letter-spacing:.06em;text-transform:uppercase;color:var(--texte-doux);border-bottom:3px solid transparent;margin-bottom:-1px;transition:.2s}
+.view-tab:hover{color:var(--noir)}
+.view-tab.on{color:var(--noir);border-color:var(--or)}
+.view-tab .lock{font-size:.62rem;background:var(--noir);color:var(--or-clair);padding:2px 7px;border-radius:999px;margin-left:6px;vertical-align:2px;letter-spacing:.08em}
+/* Éditeur de carte */
+.menu-tools{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:16px}
+.menu-tools input[type=search]{flex:1;min-width:220px;max-width:380px;padding:11px 15px;border-radius:999px;border:1px solid rgba(43,38,32,.18);background:#fff;font-family:inherit;font-size:.88rem}
+.menu-tools input[type=search]:focus{outline:none;border-color:var(--or);box-shadow:0 0 0 3px rgba(200,162,75,.2)}
+.menu-legend{font-size:.76rem;color:var(--texte-doux)}
+.menu-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin:0 5px 0 12px;vertical-align:-1px}
+.m-group{margin-bottom:26px}
+.m-group h3{font-size:.95rem;color:var(--noir);margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.m-group h3::after{content:"";flex:1;height:1px;background:rgba(200,162,75,.35)}
+.m-row{display:grid;grid-template-columns:minmax(160px,1.4fr) minmax(170px,1fr) minmax(150px,1.2fr) 290px;gap:10px;align-items:center;background:#fff;border:1px solid rgba(43,38,32,.08);border-left:4px solid transparent;border-radius:12px;padding:12px 14px;margin-bottom:8px;transition:.2s}
+.m-row.mod{border-left-color:var(--or)}
+.m-row.dirty{border-left-color:#2b5687;box-shadow:0 0 0 2px rgba(43,86,135,.12)}
+.m-row.off{background:#f4f1ea}
+.m-row.off .m-name,.m-row.off .m-price input{opacity:.5;text-decoration:line-through}
+.m-row input{width:100%;padding:9px 11px;border-radius:9px;border:1px solid rgba(43,38,32,.16);font-family:inherit;font-size:.86rem;background:#fff}
+.m-row input:focus{outline:none;border-color:var(--or);box-shadow:0 0 0 3px rgba(200,162,75,.18)}
+.m-row .m-orig{font-size:.7rem;color:var(--texte-doux);margin-top:3px;min-height:1em}
+.m-price{display:flex;gap:6px;align-items:center}
+.m-price label{font-size:.68rem;color:var(--texte-doux);white-space:nowrap}
+.m-price input{max-width:90px;text-align:right;font-family:'Oswald',sans-serif;font-size:.95rem}
+.m-price .dt{font-size:.75rem;color:var(--texte-doux)}
+.m-act{display:flex;gap:6px;align-items:center;justify-content:flex-end}
+.m-act button{padding:8px 12px;border-radius:9px;font-size:.74rem;font-weight:600;letter-spacing:.03em;transition:.2s;white-space:nowrap}
+.b-save{background:var(--noir);color:var(--or-clair)}
+.b-save:disabled{opacity:.3;cursor:not-allowed}
+.b-save:not(:disabled):hover{background:var(--or);color:var(--noir)}
+.b-reset{border:1px solid rgba(43,38,32,.2);color:var(--texte-doux)}
+.b-reset:hover{border-color:var(--rouge);color:var(--rouge)}
+.sw{position:relative;width:42px;height:24px;border-radius:999px;background:var(--vert);transition:.2s;flex-shrink:0}
+.sw::after{content:"";position:absolute;top:3px;left:21px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.sw.off{background:#bdb5a6}.sw.off::after{left:3px}
+.sw-wrap{display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--texte-doux);min-width:92px}
+.menu-msg{background:#fff;border:1px dashed rgba(43,38,32,.25);border-radius:12px;padding:22px;color:var(--texte-doux);text-align:center}
+@media(max-width:860px){.m-row{grid-template-columns:1fr 1fr}.m-act{grid-column:1/-1;justify-content:space-between}}
+@media(max-width:520px){.m-row{grid-template-columns:1fr}}
 .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--noir);color:var(--creme);padding:14px 26px;border-radius:999px;font-size:.88rem;font-weight:500;z-index:200;opacity:0;transition:.35s;border:1px solid rgba(200,162,75,.4);box-shadow:0 18px 60px rgba(17,16,16,.28);max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media(max-width:700px){
@@ -191,6 +232,11 @@ header.admin{position:sticky;top:0;z-index:50;background:rgba(17,16,16,.95);back
   </header>
 
   <div class="wrap">
+    <div class="view-tabs" id="viewTabs">
+      <button class="view-tab on" data-v="orders">Commandes &amp; stats</button>
+      <button class="view-tab" data-v="menu" id="tabMenu" style="display:none">Carte <span class="lock">Super Admin</span></button>
+    </div>
+    <div id="viewOrders">
     <div class="period-row">
       <h2>Tableau de bord</h2>
       <div class="chips" id="periodChips">
@@ -249,12 +295,27 @@ header.admin{position:sticky;top:0;z-index:50;background:rgba(17,16,16,.95);back
     </div>
     <div class="ordre-grid" id="ordersGrid"></div>
     <p id="ordersEmpty">Aucune commande sur cette période.</p>
+    </div><!-- /viewOrders -->
+
+    <div id="viewMenu" style="display:none">
+      <div class="sec-title">
+        <h2>Gestion de la carte</h2>
+        <span class="refresh-note">Les changements sont visibles sur le site dès l'enregistrement</span>
+      </div>
+      <div class="chips" id="menuCats" style="margin-bottom:16px"></div>
+      <div class="menu-tools">
+        <input type="search" id="menuSearch" placeholder="Rechercher un article…">
+        <span class="menu-legend"><i style="background:var(--or)"></i>Modifié <i style="background:#2b5687"></i>Non enregistré <i style="background:#bdb5a6"></i>Masqué</span>
+      </div>
+      <div id="menuEditor"></div>
+    </div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="menu.js"></script>
 <script>
 /* ================================================================
    MISTER M — Espace Admin (commandes + statistiques)
@@ -267,6 +328,8 @@ try { db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY); } catch(e){ consol
 const LBL = {en_attente:"En attente", en_preparation:"En préparation", pret:"Prête", servi:"Servie", annulee:"Annulée"};
 const NEXT = {en_attente:["en_preparation","→ En préparation"], en_preparation:["pret","→ Prête"], pret:["servi","→ Servie"]};
 const fmt = v => { const n = Math.round(v*100)/100; return (Number.isInteger(n)? n : n.toFixed(2).replace(/\.?0+$/,"")); };
+
+const escH = v => String(v ?? "").replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
 let session = null;
 let period = "jour";
@@ -288,16 +351,22 @@ document.getElementById("loginForm").addEventListener("submit", async (ev)=>{
   btn.disabled = true; btn.textContent = "Vérification...";
   const u = document.getElementById("fUser").value.trim();
   const p = document.getElementById("fPass").value;
-  const {data, error} = await db.rpc("mister_m_login", {u, p});
+  // Session sécurisée (jeton côté base) ; repli sur l'ancienne fonction si le script SQL n'est pas encore installé
+  let {data, error} = await db.rpc("mister_m_start_session", {u, p});
+  let legacy = false;
+  if(error && (error.code==="PGRST202" || /could not find|does not exist/i.test(error.message||""))){
+    ({data, error} = await db.rpc("mister_m_login", {u, p})); legacy = true;
+  }
   btn.disabled = false; btn.textContent = "Se connecter";
   if(error){ toast("Erreur de connexion, réessayez."); return; }
   if(!data || !data.length){ err.style.display = "block"; return; }
-  session = {username: data[0].username, role: data[0].role};
+  session = {username: data[0].username, role: data[0].role, token: legacy ? null : data[0].token};
   sessionStorage.setItem("mm_admin", JSON.stringify(session));
   enterDash();
 });
 
 function logout(){
+  if(db && session && session.token) db.rpc("mister_m_end_session", {t: session.token}).then(()=>{}, ()=>{});
   session = null;
   sessionStorage.removeItem("mm_admin");
   if(refreshTimer){ clearInterval(refreshTimer); refreshTimer = null; }
@@ -309,7 +378,9 @@ function enterDash(){
   document.getElementById("loginView").style.display = "none";
   document.getElementById("dashView").style.display = "block";
   document.getElementById("adminUser").innerHTML =
-    `Connecté : <b>${session.username}</b>${session.role==="super_admin"?" · Super Admin":""}`;
+    `Connecté : <b>${escH(session.username)}</b>${session.role==="super_admin"?" · Super Admin":""}`;
+  document.getElementById("tabMenu").style.display = session.role==="super_admin" ? "" : "none";
+  showView("orders");
   loadData(true);
   if(!refreshTimer) refreshTimer = setInterval(()=>loadData(false), 10000);
 }
@@ -456,22 +527,22 @@ function renderOrders(){
   grid.innerHTML = list.map(o=>{
     const d = new Date(o.created_at);
     const quand = d.toLocaleDateString("fr-FR",{day:"2-digit",month:"2-digit"}) + " " + d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});
-    const items = (o.items||[]).map(it=>`<li><span>${it.qty} × ${it.name}</span><b>${fmt(it.price*it.qty)} DT</b></li>`).join("");
+    const items = (o.items||[]).map(it=>`<li><span>${escH(it.qty)} × ${escH(it.name)}</span><b>${fmt(it.price*it.qty)} DT</b></li>`).join("");
     const next = NEXT[o.status];
     return `<div class="ordre">
       <div class="ordre-top">
         <div><strong>N° ${o.order_number}</strong>
-          <div class="ordre-meta">${quand} · ${o.customer_name}${o.phone?" · "+o.phone:""}</div>
-          <div class="ordre-meta">${o.order_type==="sur_place"?("Sur place"+(o.table_number?" · Table "+o.table_number:"")):"À emporter"}</div>
+          <div class="ordre-meta">${quand} · ${escH(o.customer_name)}${o.phone?" · "+escH(o.phone):""}</div>
+          <div class="ordre-meta">${o.order_type==="sur_place"?("Sur place"+(o.table_number?" · Table "+escH(o.table_number):"")):"À emporter"}</div>
         </div>
-        <span class="badge b-${o.status}">${LBL[o.status]}</span>
+        <span class="badge b-${escH(o.status)}">${escH(LBL[o.status]||o.status)}</span>
       </div>
       <ul>${items}</ul>
-      ${o.note?`<p class="ordre-meta" style="font-style:italic">« ${o.note} »</p>`:""}
+      ${o.note?`<p class="ordre-meta" style="font-style:italic">« ${escH(o.note)} »</p>`:""}
       <div class="ordre-total"><span>Total</span><b>${fmt(Number(o.total))} DT</b></div>
       <div class="ordre-actions">
-        ${next?`<button onclick="setStatus('${o.id}','${next[0]}')">${next[1]}</button>`:""}
-        ${o.status!=="servi"&&o.status!=="annulee"?`<button class="annuler" onclick="setStatus('${o.id}','annulee')">Annuler</button>`:""}
+        ${next?`<button onclick="setStatus('${escH(o.id)}','${next[0]}')">${next[1]}</button>`:""}
+        ${o.status!=="servi"&&o.status!=="annulee"?`<button class="annuler" onclick="setStatus('${escH(o.id)}','annulee')">Annuler</button>`:""}
       </div>
     </div>`;
   }).join("");
@@ -510,6 +581,153 @@ function toast(msg){
   t.textContent = msg; t.classList.add("show");
   clearTimeout(toastTimer);
   toastTimer = setTimeout(()=>t.classList.remove("show"), 3200);
+}
+
+/* ================================================================
+   Carte — édition réservée au Super Admin
+   ================================================================ */
+let menuRows = [], menuView = [], menuCat = null, menuLoaded = false;
+
+function showView(v){
+  if(v==="menu" && (!session || session.role!=="super_admin")) v = "orders";
+  document.querySelectorAll("#viewTabs .view-tab").forEach(b=>b.classList.toggle("on", b.dataset.v===v));
+  document.getElementById("viewOrders").style.display = v==="orders" ? "" : "none";
+  document.getElementById("viewMenu").style.display = v==="menu" ? "" : "none";
+  if(v==="menu") loadMenu();
+}
+document.getElementById("viewTabs").addEventListener("click", ev=>{
+  const b = ev.target.closest(".view-tab"); if(b) showView(b.dataset.v);
+});
+
+async function loadMenu(){
+  const box = document.getElementById("menuEditor");
+  if(!session.token){
+    box.innerHTML = `<div class="menu-msg">L'édition de la carte nécessite le script <b>supabase_menu_admin.sql</b> (à exécuter une fois dans Supabase), puis une reconnexion.</div>`;
+    return;
+  }
+  if(!menuLoaded) box.innerHTML = `<p style="color:var(--texte-doux)">Chargement de la carte…</p>`;
+  const {data, error} = await db.from("mister_m_menu_overrides").select("*");
+  if(error){ box.innerHTML = `<div class="menu-msg">Impossible de charger la carte (${escH(error.message)}).<br>Vérifiez que le script <b>supabase_menu_admin.sql</b> a bien été exécuté.</div>`; return; }
+  menuRows = data || []; menuLoaded = true;
+  menuView = applyMenuOverrides(MENU, menuRows, true);
+  if(!menuCat) menuCat = menuView[0].id;
+  renderMenuCats(); renderMenuEditor();
+}
+
+function renderMenuCats(){
+  document.getElementById("menuCats").innerHTML = menuView.map(c=>{
+    const n = c.groups.reduce((s,g)=>s+g.items.filter(i=>i.ov).length,0);
+    return `<button class="chip-btn${c.id===menuCat?" on":""}" data-c="${c.id}">${escH(c.label)}${n?` <span class="n">${n}</span>`:""}</button>`;
+  }).join("");
+}
+document.getElementById("menuCats").addEventListener("click", ev=>{
+  const b = ev.target.closest(".chip-btn"); if(!b) return;
+  menuCat = b.dataset.c; document.getElementById("menuSearch").value = "";
+  renderMenuCats(); renderMenuEditor();
+});
+document.getElementById("menuSearch").addEventListener("input", renderMenuEditor);
+
+function priceFields(it){
+  if(it.v) return it.v.map((x,i)=>`<label>${escH(x.l)}</label><input type="number" step="0.1" min="0" data-f="v${i}" value="${x.p}"><span class="dt">DT</span>`).join("");
+  return `<input type="number" step="0.1" min="0" data-f="p" value="${it.p==null?"":it.p}" placeholder="En salle"><span class="dt">DT</span>`;
+}
+function origLine(it){
+  if(!it.ov) return "";
+  const parts = [];
+  if(it.n!==it.orig.n) parts.push("nom : "+it.orig.n);
+  if(it.v){ if(it.v.some((x,i)=>x.p!==it.orig.v[i].p)) parts.push("prix : "+it.orig.v.map(x=>x.p).join(" / ")+" DT"); }
+  else if(it.p!==it.orig.p) parts.push("prix : "+(it.orig.p==null?"en salle":it.orig.p+" DT"));
+  return parts.length ? "Origine — "+parts.join(" · ") : "";
+}
+
+function renderMenuEditor(){
+  const q = document.getElementById("menuSearch").value.trim().toLowerCase();
+  const cats = q ? menuView : menuView.filter(c=>c.id===menuCat);
+  let html = "";
+  cats.forEach(c=>c.groups.forEach(g=>{
+    const items = g.items.filter(it=>!q || it.n.toLowerCase().includes(q) || it.orig.n.toLowerCase().includes(q));
+    if(!items.length) return;
+    html += `<div class="m-group"><h3>${q?escH(c.label)+" · ":""}${escH(g.title)}</h3>` + items.map(it=>`
+      <div class="m-row${it.ov?" mod":""}${it.hidden?" off":""}" data-k="${escH(it.key)}">
+        <div><input class="m-name" data-f="n" value="${escH(it.n)}" maxlength="80" aria-label="Nom"><div class="m-orig">${escH(origLine(it))}</div></div>
+        <div class="m-price">${priceFields(it)}</div>
+        <div><input data-f="d" value="${escH(it.d||"")}" maxlength="200" placeholder="Description (facultatif)" aria-label="Description"></div>
+        <div class="m-act">
+          <span class="sw-wrap"><button class="sw${it.hidden?" off":""}" data-f="h" aria-label="Visible sur le site"></button><span>${it.hidden?"Masqué":"Visible"}</span></span>
+          <button class="b-save" disabled>Enregistrer</button>
+          <button class="b-reset" title="Revenir à la carte d'origine" style="${it.ov?"":"visibility:hidden"}">↺</button>
+        </div>
+      </div>`).join("") + `</div>`;
+  }));
+  document.getElementById("menuEditor").innerHTML = html || `<div class="menu-msg">Aucun article trouvé.</div>`;
+}
+
+function findItem(key){
+  for(const c of menuView) for(const g of c.groups) for(const it of g.items) if(it.key===key) return it;
+  return null;
+}
+function readRow(row, it){
+  const val = f => row.querySelector(`[data-f="${f}"]`);
+  const name = val("n").value.trim();
+  const desc = val("d").value.trim();
+  const hidden = val("h").classList.contains("off");
+  let price = null, variants = null, bad = false;
+  if(it.v){
+    const ps = it.v.map((_,i)=>{ const x = val("v"+i).value; return x===""? null : Number(x); });
+    if(ps.some(x=>x===null || isNaN(x) || x<0)) bad = true;
+    if(ps.some((x,i)=>x!==it.orig.v[i].p)) variants = ps;
+  } else {
+    const x = val("p").value;
+    if(x!==""){ price = Number(x); if(isNaN(price) || price<0) bad = true; if(price===it.orig.p) price = null; }
+    else if(it.orig.p!=null) bad = true;   // un prix existant ne peut pas être vidé (masquez l'article à la place)
+  }
+  if(!name) bad = true;
+  return {
+    bad,
+    name: name===it.orig.n ? null : name,
+    price, variants,
+    desc: desc===(it.orig.d||"") ? null : desc,
+    hidden
+  };
+}
+function isDefault(r){ return r.name===null && r.price===null && r.variants===null && r.desc===null && !r.hidden; }
+
+document.getElementById("menuEditor").addEventListener("input", ev=>{
+  const row = ev.target.closest(".m-row"); if(!row) return;
+  row.classList.add("dirty"); row.querySelector(".b-save").disabled = false;
+});
+document.getElementById("menuEditor").addEventListener("click", async ev=>{
+  const row = ev.target.closest(".m-row"); if(!row) return;
+  const it = findItem(row.dataset.k); if(!it) return;
+  const sw = ev.target.closest(".sw");
+  if(sw){
+    sw.classList.toggle("off"); sw.nextElementSibling.textContent = sw.classList.contains("off") ? "Masqué" : "Visible";
+    row.classList.toggle("off", sw.classList.contains("off"));
+    row.classList.add("dirty"); row.querySelector(".b-save").disabled = false;
+    return;
+  }
+  if(ev.target.closest(".b-reset")){
+    await saveItem(it, null, row); return;
+  }
+  if(ev.target.closest(".b-save")){
+    const r = readRow(row, it);
+    if(r.bad){ toast("Vérifiez le nom et les prix (nombres positifs)."); return; }
+    await saveItem(it, isDefault(r) ? null : r, row);
+  }
+});
+
+async function saveItem(it, r, row){
+  row.querySelectorAll("button").forEach(b=>b.disabled = true);
+  const res = r
+    ? await db.rpc("mister_m_menu_save", {t: session.token, k: it.key, p_name: r.name, p_price: r.price, p_variants: r.variants, p_desc: r.desc, p_hidden: r.hidden})
+    : await db.rpc("mister_m_menu_reset", {t: session.token, k: it.key});
+  if(res.error){
+    row.querySelectorAll("button").forEach(b=>b.disabled = false);
+    if(/not_authorized/.test(res.error.message||"")){ toast("Session expirée ou droits insuffisants — reconnectez-vous."); return; }
+    toast("Enregistrement impossible : " + (res.error.message||"erreur")); return;
+  }
+  toast(r ? `« ${r.name || it.orig.n} » enregistré ✓` : `« ${it.orig.n} » remis à l'origine ✓`);
+  await loadMenu();
 }
 
 if(session) enterDash();

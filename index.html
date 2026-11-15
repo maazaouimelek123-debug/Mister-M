@@ -11,7 +11,7 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23111010'/%3E%3Ctext x='32' y='42' font-family='Georgia' font-size='28' font-weight='bold' fill='%23f6f2e9' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Great+Vibes&family=Cairo:wght@400;500;600;700;800&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --noir:#111010;
@@ -53,6 +53,34 @@ header{position:fixed;top:0;left:0;right:0;z-index:90;background:rgba(17,16,16,.
 .cart-btn:hover{background:var(--or-clair);transform:translateY(-1px)}
 .cart-count{position:absolute;top:-7px;right:-7px;background:var(--noir);color:var(--or-clair);font-size:.68rem;font-weight:700;min-width:20px;height:20px;border-radius:999px;display:flex;align-items:center;justify-content:center;border:2px solid var(--or);padding:0 4px}
 .burger{display:none;flex-direction:column;gap:5px;padding:8px}
+.lang-btn{color:var(--or-clair);border:1px solid rgba(200,162,75,.5);border-radius:999px;padding:7px 14px;font-size:.82rem;font-weight:700;font-family:'Cairo','Inter',sans-serif;transition:.2s;margin-inline-start:14px;line-height:1.2}
+.lang-btn:hover{background:var(--or);color:var(--noir)}
+/* ---------- Arabe (RTL) ---------- */
+html[lang=ar] body{font-family:'Inter','Cairo',sans-serif}
+html[lang=ar] *{letter-spacing:0!important}
+html[lang=ar] h1,html[lang=ar] h2,html[lang=ar] h3,html[lang=ar] h4,html[lang=ar] .hero-info strong,html[lang=ar] .apropos-pts strong,
+html[lang=ar] .prix,html[lang=ar] .item-prix,html[lang=ar] .var-btn,html[lang=ar] .total-row strong,html[lang=ar] .suivi .num,
+html[lang=ar] .map-badge strong,html[lang=ar] .t-body b,html[lang=ar] .t-price,html[lang=ar] .brand-name{font-family:'Oswald','Cairo',sans-serif}
+html[lang=ar] h2,html[lang=ar] h3,html[lang=ar] h4{font-weight:800}
+html[lang=ar] .item-prix.salle{font-family:'Cairo',sans-serif}
+html[lang=ar] .script{font-family:'Aref Ruqaa','Great Vibes',serif!important;line-height:1.5}
+html[lang=ar] .brand-name small{font-family:'Cairo',sans-serif;font-size:.68rem}
+html[lang=ar] .hero .sub,html[lang=ar] .apropos-txt p{line-height:1.9}
+html[lang=ar] .apropos-pts div{border-left:none;padding-left:0;border-right:2px solid var(--or);padding-right:14px}
+html[lang=ar] .c-card::after{left:auto;right:0;border-radius:0 0 0 3px}
+html[lang=ar] .cart-count{right:auto;left:-7px}
+html[lang=ar] .cart-line .prix{text-align:left}
+html[lang=ar] .toast{right:auto;left:22px;transform:translateX(calc(-100% - 40px)) scale(.96)}
+html[lang=ar] .toast.show{animation-name:toastInR}
+@keyframes toastInR{0%{opacity:0;transform:translateX(calc(-100% - 40px)) scale(.96)}100%{opacity:1;transform:none}}
+html[lang=ar] .toast::before{left:auto;right:0}
+html[lang=ar] .t-bar{transform-origin:right}
+html[lang=ar] .drawer{right:auto;left:-460px;transition:left .35s cubic-bezier(.22,.9,.3,1)}
+html[lang=ar] .drawer.open{left:0}
+@media(max-width:820px){.lang-btn{margin-inline-start:auto;margin-inline-end:6px}
+  html[lang=ar] .toast{left:50%;right:auto;transform:translate(-50%,40px)}
+  html[lang=ar] .toast.show{animation-name:toastInMR}
+  @keyframes toastInMR{0%{opacity:0;transform:translate(-50%,40px) scale(.96)}100%{opacity:1;transform:translate(-50%,0)}}}
 .burger span{width:24px;height:2px;background:var(--creme);transition:.25s}
 @media(max-width:820px){
   .nav-links{position:fixed;top:68px;right:-100%;flex-direction:column;background:var(--noir);width:100%;padding:28px 0;gap:22px;transition:.3s;border-bottom:1px solid rgba(200,162,75,.25)}
@@ -277,17 +305,18 @@ section{padding:90px 20px}
         <path d="M42 82 h30 a12 12 0 0 1-24 6 q-5-1-6-6z" fill="#f6f2e9"/>
         <path d="M74 84 q10-3 8 6 q-1 5-9 3" fill="none" stroke="#f6f2e9" stroke-width="3"/>
       </svg>
-      <span class="brand-name">Mister M<small>Salon de thé · Mornag</small></span>
+      <span class="brand-name">Mister M<small data-i18n="brand.sub">Salon de thé · Mornag</small></span>
     </a>
     <nav class="nav-links" id="navLinks">
-      <a href="#apropos">À propos</a>
-      <a href="#menu">Menu</a>
-      <a href="#contact">Contact</a>
+      <a href="#apropos" data-i18n="nav.about">À propos</a>
+      <a href="#menu" data-i18n="nav.menu">Menu</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
       <button class="cart-btn" onclick="toggleCart(true)">
-        Panier · <span id="cartTotalNav">0 DT</span>
+        <span data-i18n="nav.cart">Panier</span> · <span id="cartTotalNav">0 DT</span>
         <span class="cart-count" id="cartCountNav">0</span>
       </button>
     </nav>
+    <button class="lang-btn" id="langBtn" onclick="setLang(LANG==='ar'?'fr':'ar')">عربي</button>
     <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -312,18 +341,18 @@ section{padding:90px 20px}
         <text x="60" y="106" font-family="Oswald,sans-serif" font-size="9" letter-spacing="3" fill="#c8a24b" text-anchor="middle">COFFEE</text>
       </svg>
     </div>
-    <span class="script">Salon de thé &amp; Restau</span>
+    <span class="script" data-i18n="hero.script">Salon de thé &amp; Restau</span>
     <h1>Mister M</h1>
-    <span class="lieu">Mornag · Tunisie</span>
-    <p class="sub">Café turc, milkshakes signature et cuisine maison. Installez-vous, on s'occupe du reste.</p>
+    <span class="lieu" data-i18n="hero.lieu">Mornag · Tunisie</span>
+    <p class="sub" data-i18n="hero.sub">Café turc, milkshakes signature et cuisine maison. Installez-vous, on s'occupe du reste.</p>
     <div class="hero-cta">
-      <a href="#menu" class="btn btn-or">Découvrir le menu</a>
-      <a href="#contact" class="btn btn-ghost">Nous trouver</a>
+      <a href="#menu" class="btn btn-or" data-i18n="hero.cta1">Découvrir le menu</a>
+      <a href="#contact" class="btn btn-ghost" data-i18n="hero.cta2">Nous trouver</a>
     </div>
     <div class="hero-info">
-      <div>Ouvert<strong>7 jours / 7</strong></div>
-      <div>Sur place<strong>&amp; à emporter</strong></div>
-      <div>Match du soir<strong>Grand écran</strong></div>
+      <div data-i18n="hero.i1">Ouvert<strong>7 jours / 7</strong></div>
+      <div data-i18n="hero.i2">Sur place<strong>&amp; à emporter</strong></div>
+      <div data-i18n="hero.i3">Match du soir<strong>Grand écran</strong></div>
     </div>
   </div>
 </section>
@@ -333,15 +362,15 @@ section{padding:90px 20px}
   <div class="wrap apropos-grid">
     <div class="apropos-img"><img src="https://images.unsplash.com/photo-1525610553991-2bede1a236e2?auto=format&fit=crop&w=1200&q=80" alt="Ambiance chaleureuse d'un café" loading="lazy"></div>
     <div class="apropos-txt">
-      <span class="script">Notre maison</span>
-      <h2>Bien plus qu'un café</h2>
-      <p>Au cœur de Mornag, Mister M réunit ce qui fait un vrai salon de thé : un café soigné, une cuisine généreuse et une salle pensée pour rester — entre amis, en famille ou devant le match du soir sur grand écran.</p>
-      <p>Petit déjeuner complet, crêpes salées ou sucrées, pizzas au feu, chicha posée et desserts glacés : la carte traverse la journée, du premier expresso au dernier mojito.</p>
+      <span class="script" data-i18n="about.script">Notre maison</span>
+      <h2 data-i18n="about.h2">Bien plus qu'un café</h2>
+      <p data-i18n="about.p1">Au cœur de Mornag, Mister M réunit ce qui fait un vrai salon de thé : un café soigné, une cuisine généreuse et une salle pensée pour rester — entre amis, en famille ou devant le match du soir sur grand écran.</p>
+      <p data-i18n="about.p2">Petit déjeuner complet, crêpes salées ou sucrées, pizzas au feu, chicha posée et desserts glacés : la carte traverse la journée, du premier expresso au dernier mojito.</p>
       <div class="apropos-pts">
-        <div><strong>Café turc spécial</strong><span>Notre préparation signature</span></div>
-        <div><strong>Cuisine Restau M&amp;M</strong><span>Pizzas, pâtes &amp; burgers maison</span></div>
-        <div><strong>Coin famille</strong><span>Menu enfant dédié</span></div>
-        <div><strong>Ambiance match</strong><span>Grand écran &amp; salle climatisée</span></div>
+        <div data-i18n="about.pt1"><strong>Café turc spécial</strong><span>Notre préparation signature</span></div>
+        <div data-i18n="about.pt2"><strong>Cuisine Restau M&amp;M</strong><span>Pizzas, pâtes &amp; burgers maison</span></div>
+        <div data-i18n="about.pt3"><strong>Coin famille</strong><span>Menu enfant dédié</span></div>
+        <div data-i18n="about.pt4"><strong>Ambiance match</strong><span>Grand écran &amp; salle climatisée</span></div>
       </div>
     </div>
   </div>
@@ -351,9 +380,9 @@ section{padding:90px 20px}
 <section id="menu">
   <div class="wrap">
     <div class="sec-head">
-      <span class="script">La carte</span>
-      <h2>Notre menu</h2>
-      <p>Ajoutez vos envies au panier et commandez directement depuis votre table — ou à emporter.</p>
+      <span class="script" data-i18n="menu.script">La carte</span>
+      <h2 data-i18n="menu.h2">Notre menu</h2>
+      <p data-i18n="menu.p">Ajoutez vos envies au panier et commandez directement depuis votre table — ou à emporter.</p>
     </div>
     <div class="tabs" id="tabs"></div>
     <div id="panels"></div>
@@ -364,46 +393,46 @@ section{padding:90px 20px}
 <section id="contact">
   <div class="wrap">
     <div class="sec-head" style="margin-bottom:44px">
-      <span class="script" style="color:var(--or-clair)">On vous attend</span>
-      <h2 style="color:var(--creme)">Nous trouver</h2>
+      <span class="script" style="color:var(--or-clair)" data-i18n="contact.script">On vous attend</span>
+      <h2 style="color:var(--creme)" data-i18n="contact.h2">Nous trouver</h2>
     </div>
     <div class="contact-layout">
       <div class="contact-cards">
         <div class="c-card">
           <div class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
-          <h4>Adresse</h4>
-          <p>Mornag, Ben Arous<br>Tunisie</p>
-          <a class="c-link" href="https://www.google.com/maps/search/?api=1&query=Mister+M+Coffee+Mornag" target="_blank" rel="noopener">Itinéraire ↗</a>
+          <h4 data-i18n="c.addr.h">Adresse</h4>
+          <p data-i18n="c.addr.p">Mornag, Ben Arous<br>Tunisie</p>
+          <a class="c-link" href="https://www.google.com/maps/search/?api=1&query=Mister+M+Coffee+Mornag" target="_blank" rel="noopener" data-i18n="c.addr.a">Itinéraire ↗</a>
         </div>
         <div class="c-card">
           <div class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-          <h4>Horaires</h4>
-          <span class="open">Ouvert 7 jours / 7</span>
-          <p>Petit déjeuner servi dès l'ouverture</p>
+          <h4 data-i18n="c.hours.h">Horaires</h4>
+          <span class="open" data-i18n="c.hours.open">Ouvert 7 jours / 7</span>
+          <p data-i18n="c.hours.p">Petit déjeuner servi dès l'ouverture</p>
         </div>
         <div class="c-card">
           <div class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h13v4a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 3c0 1.5 1 1.5 1 3M12 3c0 1.5 1 1.5 1 3"/></svg></div>
-          <h4>Sur place</h4>
-          <div class="tags"><span>Salle climatisée</span><span>Grand écran</span><span>Chicha</span><span>Coin famille</span></div>
+          <h4 data-i18n="c.place.h">Sur place</h4>
+          <div class="tags" data-i18n="c.place.tags"><span>Salle climatisée</span><span>Grand écran</span><span>Chicha</span><span>Coin famille</span></div>
         </div>
         <div class="c-card">
           <div class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></div>
-          <h4>Commande</h4>
-          <p>Depuis votre table ou à emporter, directement via le panier.</p>
-          <a class="c-link" href="#menu">Voir le menu →</a>
+          <h4 data-i18n="c.order.h">Commande</h4>
+          <p data-i18n="c.order.p">Depuis votre table ou à emporter, directement via le panier.</p>
+          <a class="c-link" href="#menu" data-i18n="c.order.a">Voir le menu →</a>
         </div>
       </div>
       <div class="map-card">
         <iframe src="https://www.google.com/maps?q=Mister+M+Coffee+Mornag+Tunisie&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Carte — Mister M Coffee à Mornag"></iframe>
         <div class="map-badge">
-          <div><strong>MISTER M COFFEE</strong><small>Salon de thé &amp; Restau · Mornag</small></div>
-          <a href="https://www.google.com/maps/dir/?api=1&destination=Mister+M+Coffee+Mornag" target="_blank" rel="noopener">Y aller</a>
+          <div><strong>MISTER M COFFEE</strong><small data-i18n="map.sub">Salon de thé &amp; Restau · Mornag</small></div>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Mister+M+Coffee+Mornag" target="_blank" rel="noopener" data-i18n="map.go">Y aller</a>
         </div>
       </div>
     </div>
     <div class="footer-bar">
-      <p>© 2026 Mister M Coffee — Salon de thé · Mornag. Tous droits réservés.</p>
-      <a class="staff-link" href="admin.html">Espace staff</a>
+      <p data-i18n="footer.copy">© 2026 Mister M Coffee — Salon de thé · Mornag. Tous droits réservés.</p>
+      <a class="staff-link" href="admin.html" data-i18n="footer.staff">Espace staff</a>
     </div>
   </div>
 </section>
@@ -425,6 +454,8 @@ section{padding:90px 20px}
 <div class="toast" id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="menu.js"></script>
+<script src="i18n.js"></script>
 <script>
 /* ================================================================
    MISTER M COFFEE — Mornag · Menu & commandes en ligne
@@ -436,118 +467,8 @@ let db = null;
 try { db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY); }
 catch(e){ console.warn("Supabase indisponible — le menu reste consultable.", e); }
 
-/* ---------------- Données du menu (fidèles au menu papier) ---------------- */
-const MENU = [
-  { id:"cafes", label:"Cafés & Thés", groups:[
-    { title:"Coffee & Espresso", items:[
-      {n:"Expresse",p:2.4},{n:"Américain",p:2.6},{n:"Cappucin",p:2.8},{n:"Café Crème",p:3},
-      {n:"Café Turc",p:3.5},{n:"Café Turc Spécial",p:7.5,d:"La préparation signature de la maison"},
-      {n:"Chocolat au Lait",p:3.5},{n:"Cappuccino",p:5},{n:"Liégeois",p:6.5},{n:"Chocolat Chaud",p:6.5}
-    ]},
-    { title:"Suppléments café", items:[{n:"Nestlé",p:1.5},{n:"Arôme",p:1}]},
-    { title:"Thés", items:[
-      {n:"Thé Normal",p:2},{n:"Infusion",p:3},{n:"Thé aux Amandes",p:5.5},{n:"Thé aux Pignons",p:8},{n:"Thé Baklewa",p:10}
-    ]},
-    { title:"Macchiato", items:[
-      {n:"Macchiato Caramel",p:5},{n:"Macchiato Noisette",p:5},{n:"Macchiato Vanille",p:5},{n:"Macchiato Chocolat",p:5}
-    ]},
-    { title:"Ice Latte", items:[
-      {n:"Ice Latte Vanille",p:5.5},{n:"Ice Latte Caramel",p:5.5},{n:"Ice Latte Noisette",p:5.5},{n:"Ice Latte Chocolat",p:5.5}
-    ]}
-  ]},
-  { id:"glaces", label:"Douceurs glacées", groups:[
-    { title:"Affogato", items:[
-      {n:"Affogato Amande",p:7.5},{n:"Affogato Noisette",p:8},{n:"Affogato Cajou",p:8.5},{n:"Affogato Pistache",p:9.5}
-    ]},
-    { title:"Frappuccino", items:[
-      {n:"Frappuccino Café",p:8},{n:"Frappuccino Caramel",p:8.5},{n:"Frappuccino Noisette",p:8.5},{n:"Frappuccino Cookies",p:8.5},{n:"Frappuccino Oreo",p:8.5}
-    ]},
-    { title:"Smoothies", items:[
-      {n:"Smoothie Menthe-Citron",p:5.5},{n:"Smoothie Kiwi-Banane",p:5.5},{n:"Smoothie Fraise-Banane",p:5.5},{n:"Smoothie Chocolat-Banane",p:5.5},{n:"Smoothie Fruits Rouges",p:10}
-    ]},
-    { title:"Milk-Shakes", items:[
-      {n:"Milkshake Spéculos",p:10},{n:"Milkshake Oreo",p:10},{n:"Milkshake Kinder Bueno",p:10},{n:"Milkshake Nutella",p:10},
-      {n:"Milkshake Snickers",p:10},{n:"Milkshake Cerise-Banane",p:10},{n:"Milkshake Framboise",p:10},
-      {n:"Milkshake Mister M",p:14,d:"Le shake signature de la maison"}
-    ]}
-  ]},
-  { id:"frais", label:"Mojitos & Jus", groups:[
-    { title:"Mojitos", note:"Deux formats disponibles : classique ou grand.", items:[
-      {n:"Mojito Virgin",v:[{l:"Classique",p:7},{l:"Grand",p:11}]},
-      {n:"Mojito Fruits Rouges",v:[{l:"Classique",p:9},{l:"Grand",p:12}]},
-      {n:"Mojito Blue",v:[{l:"Classique",p:8},{l:"Grand",p:11}]},
-      {n:"Mojito Black",v:[{l:"Classique",p:9},{l:"Grand",p:12}]},
-      {n:"Mojito Pinacolada",v:[{l:"Classique",p:10},{l:"Grand",p:13}]},
-      {n:"Mojito Mister M",p:15,d:"La création exclusive de la maison"}
-    ]},
-    { title:"Jus frais", items:[
-      {n:"Citronnade",p:4},{n:"Jus d'Orange",p:4},{n:"Jus de Fraise",p:6},{n:"Citronnade aux Amandes",p:6},
-      {n:"Jus de Kiwi",p:7.5},{n:"Jus Kiwi-Banane",p:9},{n:"Jus Fraise-Banane",p:9},{n:"Jus Banane-Datte",p:10},
-      {n:"Jus Fruits Secs",p:null},{n:"Cocktail Mister M",p:15,d:"Le cocktail de fruits signature"}
-    ]},
-    { title:"Boissons", items:[
-      {n:"Eau Minérale 0.5L",p:1.2},{n:"Eau Minérale 1L",p:2},{n:"Eau Minérale Safia",p:2.5},{n:"Soda (Coca, Fanta, Sprite...)",p:3}
-    ]}
-  ]},
-  { id:"patisseries", label:"Pâtisseries", groups:[
-    { title:"Viennoiseries & Gâteaux", items:[
-      {n:"Croissant",p:2.5},{n:"Croissant Chocolat",p:4.5},{n:"Croissant au Choix",p:4.5},
-      {n:"Brownies",p:7},{n:"Cheesecake",p:7},{n:"Tiramisu",p:7},
-      {n:"Fondant Chocolat",p:7},{n:"Fondant Noisette",p:8},{n:"Fondant Pistache",p:9},
-      {n:"Gâteau Chocolat",p:7},{n:"Gâteau Noisette",p:8},{n:"Gâteau Pistache",p:9},
-      {n:"Banana Split",p:14}
-    ]}
-  ]},
-  { id:"crepes", label:"Crêpes", groups:[
-    { title:"Crêpes salées", items:[
-      {n:"Crêpe Thon Fromage",p:9},{n:"Crêpe Jambon Fromage",p:9},
-      {n:"Crêpe Spéciale",p:11,d:"Thon, fromage, œuf, jambon"},
-      {n:"Crêpe Mister M",p:15,d:"Thon, fromage, œuf, sauce blanche"}
-    ]},
-    { title:"Crêpes sucrées", items:[
-      {n:"Crêpe Chocolat",p:6.5},{n:"Crêpe Croustillante",p:7.5},{n:"Crêpe Chocolat Fruits Secs",p:9.5},
-      {n:"Crêpe Chocolat Banane",p:10.5},{n:"Crêpe Nutella",p:11},{n:"Crêpe Nutella Banane",p:13},
-      {n:"Crêpe Nutella Fruits Secs",p:13},{n:"Crêpe Spéciale Sucrée",p:13}
-    ]}
-  ]},
-  { id:"restau", label:"Restau M&M", groups:[
-    { title:"Pizzas", items:[
-      {n:"Pizza Margueritta",p:13},{n:"Pizza Champignon",p:16},{n:"Pizza Neptune",p:18},{n:"Pizza Sicilienne",p:18},
-      {n:"Pizza Peperoni",p:18},{n:"Pizza Poulet-Chawerma",p:20},{n:"Pizza 4 Fromages",p:24}
-    ]},
-    { title:"Salades", items:[{n:"Salade César",p:13},{n:"Salade Tunisienne",p:9}]},
-    { title:"Pâtes", items:[{n:"Pâtes Poulet-Champignon",p:18},{n:"Pâtes Bolognaise",p:18},{n:"Pâtes Fruits de Mer",p:24}]},
-    { title:"Panini", note:"Prix communiqués en salle.", items:[
-      {n:"Panini Fromage",p:null},{n:"Panini Thon",p:null},{n:"Panini Jambon",p:null},{n:"Panini Poulet",p:null}
-    ]},
-    { title:"Burgers", items:[{n:"Chicken Burger",p:12},{n:"Burger",p:14}]},
-    { title:"Omelettes", items:[{n:"Omelette Nature",p:6.5},{n:"Omelette Thon Fromage",p:8.5},{n:"Omelette Spéciale",p:10}]},
-    { title:"Cornet", items:[{n:"Cornet Poulet",p:12},{n:"Cornet Poulet Champignon",p:14}]},
-    { title:"Baguettes", items:[{n:"Baguette Farcie",p:15},{n:"Baguette Spéciale",p:18}]},
-    { title:"Makloub", note:"Prix communiqués en salle.", items:[{n:"Makloub",p:null}]},
-    { title:"Suppléments", items:[
-      {n:"Gruyère",p:3.5},{n:"Mozzarella",p:3},{n:"Frites",p:3},{n:"Champignon",p:3.5},{n:"Jambon",p:3.5},{n:"Galette",p:2}
-    ]}
-  ]},
-  { id:"chicha", label:"Chicha", groups:[
-    { title:"Chicha", items:[
-      {n:"Chicha Pomme",p:6.5},{n:"Chicha Menthe",p:6.5},{n:"Chicha Raisin",p:6.5},
-      {n:"Chicha Bisquit",p:6.5},{n:"Chicha Love",p:7.5},{n:"Chicha Chikh Mani",p:7.5}
-    ]}
-  ]},
-  { id:"formules", label:"Petit Déj & Enfants", groups:[
-    { title:"Petit déjeuner", items:[
-      {n:"Formule Express",p:7,d:"Café au choix, croissant ou cake, jus frais au choix, eau 0.5L"},
-      {n:"Formule Mister M",p:20,d:"Café, croissant ou cake, jus frais, omelette, charcuterie, ojja, poulet grillé, crêpe sucrée, bsissa, eau 0.5L"},
-      {n:"Formule Mister M Duo",p:35,d:"La formule Mister M complète pour 2 personnes"}
-    ]},
-    { title:"Menu enfant", items:[
-      {n:"Menu 1 — Mini Pizza",p:10,d:"Mini pizza au thon, frites, boisson (soda ou jus frais)"},
-      {n:"Menu 2 — Mini Crêpe Salée",p:12,d:"Mini crêpe au thon, nuggets, boisson (soda ou jus frais)"},
-      {n:"Menu 3 — Mini Crêpe Chocolat",p:12,d:"Mini crêpe au chocolat, boule de glace, jus frais"}
-    ]}
-  ]}
-];
+/* Carte : voir menu.js (MENU, applyMenuOverrides) */
+let MENU_VIEW = applyMenuOverrides(MENU, [], false);
 
 /* ---------------- État ---------------- */
 let cart = [];
@@ -559,18 +480,20 @@ try{
   currentOrder = JSON.parse(localStorage.getItem("mm_order")||"null");
 }catch(e){ cart=[]; currentOrder=null; }
 
-const fmt = v => (Number.isInteger(v)? v : v.toFixed(2).replace(/\.?0+$/,"")) + " DT";
+const fmt = v => (Number.isInteger(v)? v : v.toFixed(2).replace(/\.?0+$/,"")) + " " + T("DT");
 const save = () => { localStorage.setItem("mm_cart", JSON.stringify(cart)); localStorage.setItem("mm_order", JSON.stringify(currentOrder)); };
 
 /* ---------------- Rendu du menu ---------------- */
 function renderMenu(){
   const tabs = document.getElementById("tabs");
   const panels = document.getElementById("panels");
+  const activeId = (document.querySelector(".menu-panel.active")||{}).id;
   tabs.innerHTML=""; panels.innerHTML="";
-  MENU.forEach((cat,i)=>{
+  const keepIdx = Math.max(0, MENU_VIEW.findIndex(c=>"panel-"+c.id===activeId));
+  MENU_VIEW.forEach((cat,i)=>{
     const t=document.createElement("button");
-    t.className="tab"+(i===0?" active":"");
-    t.textContent=cat.label;
+    t.className="tab"+(i===keepIdx?" active":"");
+    t.textContent=TM(cat.label);
     t.onclick=()=>{
       document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
       document.querySelectorAll(".menu-panel").forEach(x=>x.classList.remove("active"));
@@ -579,31 +502,32 @@ function renderMenu(){
     };
     tabs.appendChild(t);
     const p=document.createElement("div");
-    p.className="menu-panel"+(i===0?" active":"");
+    p.className="menu-panel"+(i===keepIdx?" active":"");
     p.id="panel-"+cat.id;
     p.innerHTML = cat.groups.map(g=>`
       <div class="sub-cat">
-        <div class="sub-cat-title"><h3>${g.title}</h3></div>
-        ${g.note?`<p class="sub-note">${g.note}</p>`:""}
+        <div class="sub-cat-title"><h3>${escH(TM(g.title))}</h3></div>
+        ${g.note?`<p class="sub-note">${escH(TM(g.note))}</p>`:""}
         <div class="items">
           ${g.items.map(it=>{
-            const desc = it.d?`<div class="item-desc">${it.d}</div>`:"";
+            const nm = itemName(it), ds = itemDesc(it);
+            const desc = ds?`<div class="item-desc">${escH(ds)}</div>`:"";
             if(it.v){
               return `<div class="item">
-                <div class="item-info"><div class="item-name">${it.n}</div>${desc||`<div class="item-desc">${it.v.map(x=>x.l+" "+fmt(x.p)).join(" · ")}</div>`}</div>
-                <div class="variantes">${it.v.map(x=>`<button class="var-btn" onclick="addToCart('${esc(it.n)} (${esc(x.l)})',${x.p})">${x.l}<br>${fmt(x.p)}</button>`).join("")}</div>
+                <div class="item-info"><div class="item-name">${escH(nm)}</div>${desc||`<div class="item-desc">${it.v.map(x=>TM(x.l)+" "+fmt(x.p)).join(" · ")}</div>`}</div>
+                <div class="variantes">${it.v.map(x=>`<button class="var-btn" onclick="addToCart('${esc(it.n)} (${esc(x.l)})',${x.p})">${TM(x.l)}<br>${fmt(x.p)}</button>`).join("")}</div>
               </div>`;
             }
             if(it.p==null){
               return `<div class="item">
-                <div class="item-info"><div class="item-name">${it.n}</div>${desc}</div>
-                <div class="item-dots"></div><div class="item-prix salle">Prix en salle</div>
+                <div class="item-info"><div class="item-name">${escH(nm)}</div>${desc}</div>
+                <div class="item-dots"></div><div class="item-prix salle">${T("Prix en salle")}</div>
               </div>`;
             }
             return `<div class="item">
-              <div class="item-info"><div class="item-name">${it.n}</div>${desc}</div>
+              <div class="item-info"><div class="item-name">${escH(nm)}</div>${desc}</div>
               <div class="item-dots"></div><div class="item-prix">${fmt(it.p)}</div>
-              <button class="add-mini" onclick="addToCart('${esc(it.n)}',${it.p})" aria-label="Ajouter ${it.n}">+</button>
+              <button class="add-mini" onclick="addToCart('${esc(it.n)}',${it.p})" aria-label="${T("Ajouter")} ${escH(nm)}">+</button>
             </div>`;
           }).join("")}
         </div>
@@ -611,7 +535,7 @@ function renderMenu(){
     panels.appendChild(p);
   });
 }
-function esc(s){return s.replace(/'/g,"\\'");}
+function esc(s){return String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
 
 /* ---------------- Panier ---------------- */
 function addToCart(name, price){
@@ -620,7 +544,7 @@ function addToCart(name, price){
   else cart.push({name, price, qty:1});
   save(); renderCartUI();
   const q = cart.find(l=>l.name===name).qty;
-  toast(name, {kind:"add", sub: q>1 ? `Quantité : ${q}` : "Bon appétit ☕", price: fmt(price)});
+  toast(cartName(name), {kind:"add", sub: q>1 ? T("Quantité : ")+q : T("Bon appétit ☕"), price: fmt(price)});
   // micro-animations : bouton « + », bulle +1, panier
   const ev = window.event, btn = ev && ev.target && ev.target.closest && ev.target.closest(".add-mini, button");
   if(btn){
@@ -665,48 +589,48 @@ function renderDrawer(){
   if(drawerMode==="suivi" && currentOrder){ renderSuivi(); return; }
 
   if(drawerMode==="checkout"){
-    title.textContent="Finaliser la commande";
+    title.textContent=T("Finaliser la commande");
     body.innerHTML=`
-      <div class="form-g"><label>Votre nom *</label><input id="fNom" placeholder="Ex : Ahmed" maxlength="60"></div>
-      <div class="form-g"><label>Téléphone (optionnel)</label><input id="fTel" placeholder="Ex : 22 123 456" maxlength="20" inputmode="tel"></div>
-      <div class="form-g"><label>Type de commande *</label>
+      <div class="form-g"><label>${T("Votre nom *")}</label><input id="fNom" placeholder="${T("Ex : Ahmed")}" maxlength="60"></div>
+      <div class="form-g"><label>${T("Téléphone (optionnel)")}</label><input id="fTel" placeholder="Ex : 22 123 456" maxlength="20" inputmode="tel"></div>
+      <div class="form-g"><label>${T("Type de commande *")}</label>
         <div class="seg">
-          <button id="segPlace" class="on" onclick="setType('sur_place')">Sur place</button>
-          <button id="segEmp" onclick="setType('emporter')">À emporter</button>
+          <button id="segPlace" class="on" onclick="setType('sur_place')"><span>${T("Sur place")}</span></button>
+          <button id="segEmp" onclick="setType('emporter')"><span>${T("À emporter")}</span></button>
         </div>
       </div>
-      <div class="form-g" id="tableG"><label>Numéro de table</label><input id="fTable" placeholder="Ex : 4" maxlength="10"></div>
-      <div class="form-g"><label>Note (optionnel)</label><textarea id="fNote" rows="2" placeholder="Sans sucre, bien chaud..." maxlength="200"></textarea></div>
-      <p class="err" id="fErr">Merci d'indiquer votre nom.</p>
+      <div class="form-g" id="tableG"><label>${T("Numéro de table")}</label><input id="fTable" placeholder="${T("Ex : 4")}" maxlength="10"></div>
+      <div class="form-g"><label>${T("Note (optionnel)")}</label><textarea id="fNote" rows="2" placeholder="${T("Sans sucre, bien chaud...")}" maxlength="200"></textarea></div>
+      <p class="err" id="fErr">${T("Merci d'indiquer votre nom.")}</p>
       <div style="border-top:1px dashed rgba(43,38,32,.2);padding-top:14px;margin-top:6px">
-        ${cart.map(l=>`<div style="display:flex;justify-content:space-between;font-size:.85rem;padding:2px 0"><span>${l.qty} × ${l.name}</span><b>${fmt(l.price*l.qty)}</b></div>`).join("")}
+        ${cart.map(l=>`<div style="display:flex;justify-content:space-between;font-size:.85rem;padding:2px 0"><span>${l.qty} × ${escH(cartName(l.name))}</span><b>${fmt(l.price*l.qty)}</b></div>`).join("")}
       </div>`;
     foot.innerHTML=`
-      <div class="total-row"><span>Total</span><strong>${fmt(cartTotal())}</strong></div>
-      <button class="btn btn-full" id="confirmBtn" onclick="submitOrder()">Confirmer la commande</button>
-      <button style="width:100%;margin-top:10px;font-size:.82rem;color:var(--texte-doux);text-decoration:underline" onclick="drawerMode='cart';renderDrawer()">← Revenir au panier</button>`;
+      <div class="total-row"><span>${T("Total")}</span><strong>${fmt(cartTotal())}</strong></div>
+      <button class="btn btn-full" id="confirmBtn" onclick="submitOrder()">${T("Confirmer la commande")}</button>
+      <button style="width:100%;margin-top:10px;font-size:.82rem;color:var(--texte-doux);text-decoration:underline" onclick="drawerMode='cart';renderDrawer()">${T("← Revenir au panier")}</button>`;
     return;
   }
 
-  title.textContent="Votre panier";
+  title.textContent=T("Votre panier");
   if(cart.length===0){
     body.innerHTML=`<div class="cart-empty">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h2l2.6 12.4a1 1 0 0 0 1 .6h8.8a1 1 0 0 0 1-.7L21 8H6"/><circle cx="10" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
-      Votre panier est vide.<br>Laissez-vous tenter par notre menu ✨</div>`;
-    foot.innerHTML=`<button class="btn btn-full" onclick="toggleCart(false);location.hash='#menu'">Voir le menu</button>`;
+      ${T("Votre panier est vide.")}<br>${T("Laissez-vous tenter par notre menu ✨")}</div>`;
+    foot.innerHTML=`<button class="btn btn-full" onclick="toggleCart(false);location.hash='#menu'">${T("Voir le menu")}</button>`;
     return;
   }
   body.innerHTML = cart.map((l,i)=>`
     <div class="cart-line">
-      <div class="cart-line-info"><strong>${l.name}</strong><span>${fmt(l.price)} / unité</span></div>
+      <div class="cart-line-info"><strong>${escH(cartName(l.name))}</strong><span>${fmt(l.price)} ${T("/ unité")}</span></div>
       <div class="qty">
         <button onclick="changeQty(${i},-1)">−</button><b>${l.qty}</b><button onclick="changeQty(${i},1)">+</button>
       </div>
       <div class="prix">${fmt(l.price*l.qty)}</div>
     </div>`).join("");
   foot.innerHTML=`
-    <div class="total-row"><span>Total</span><strong>${fmt(cartTotal())}</strong></div>
-    <button class="btn btn-full" onclick="drawerMode='checkout';renderDrawer()">Commander</button>`;
+    <div class="total-row"><span>${T("Total")}</span><strong>${fmt(cartTotal())}</strong></div>
+    <button class="btn btn-full" onclick="drawerMode='checkout';renderDrawer()">${T("Commander")}</button>`;
 }
 
 let orderType="sur_place";
@@ -719,13 +643,13 @@ function setType(t){
 
 /* ---------------- Envoi de commande ---------------- */
 async function submitOrder(){
-  if(!db){ toast("Connexion indisponible — merci de commander au comptoir."); return; }
+  if(!db){ toast(T("Connexion indisponible — merci de commander au comptoir."), {kind:"err"}); return; }
   const nom=document.getElementById("fNom").value.trim();
   const err=document.getElementById("fErr");
   if(!nom){ err.style.display="block"; return; }
   err.style.display="none";
   const btn=document.getElementById("confirmBtn");
-  btn.disabled=true; btn.textContent="Envoi en cours...";
+  btn.disabled=true; btn.textContent=T("Envoi en cours...");
   const payload={
     customer_name:nom,
     phone:document.getElementById("fTel").value.trim()||null,
@@ -737,8 +661,8 @@ async function submitOrder(){
   };
   const {data,error}=await db.from("mister_m_orders").insert(payload).select("id,order_number").single();
   if(error){
-    btn.disabled=false; btn.textContent="Confirmer la commande";
-    toast("Oups, l'envoi a échoué. Vérifiez votre connexion et réessayez.");
+    btn.disabled=false; btn.textContent=T("Confirmer la commande");
+    toast(T("Oups, l'envoi a échoué. Vérifiez votre connexion et réessayez."), {kind:"err"});
     return;
   }
   currentOrder={id:data.id, order_number:data.order_number};
@@ -748,22 +672,24 @@ async function submitOrder(){
 
 /* ---------------- Suivi ---------------- */
 const STEPS=[["en_attente","Reçue","⏳"],["en_preparation","En préparation","👨‍🍳"],["pret","Prête","✅"],["servi","Servie","☕"]];
+let lastStatus;
 function renderSuivi(status){
+  if(status!==undefined) lastStatus = status;
   const body=document.getElementById("drawerBody");
   const foot=document.getElementById("drawerFoot");
-  document.getElementById("drawerTitle").textContent="Suivi de commande";
+  document.getElementById("drawerTitle").textContent=T("Suivi de commande");
   const idx = status? STEPS.findIndex(s=>s[0]===status) : 0;
   body.innerHTML=`
     <div class="suivi">
-      <div class="num"><small>Commande</small>N° ${currentOrder.order_number}</div>
+      <div class="num"><small>${T("Commande")}</small>${T("N°")} ${currentOrder.order_number}</div>
       ${status==="annulee"
-        ? `<p style="margin-top:24px;color:var(--rouge);font-weight:600">Cette commande a été annulée.<br><span style="font-weight:400;font-size:.85rem;color:var(--texte-doux)">Adressez-vous au comptoir pour plus d'informations.</span></p>`
+        ? `<p style="margin-top:24px;color:var(--rouge);font-weight:600">${T("Cette commande a été annulée.")}<br><span style="font-weight:400;font-size:.85rem;color:var(--texte-doux)">${T("Adressez-vous au comptoir pour plus d'informations.")}</span></p>`
         : `<div class="steps">
-            ${STEPS.map((s,i)=>`<div class="step ${i<idx?"done":i===idx?"now":""}"><div class="dot">${i<idx?"✓":s[2]}</div><span>${s[1]}</span></div>`).join("")}
+            ${STEPS.map((s,i)=>`<div class="step ${i<idx?"done":i===idx?"now":""}"><div class="dot">${i<idx?"✓":s[2]}</div><span>${T(s[1])}</span></div>`).join("")}
           </div>
-          <p style="margin-top:22px;font-size:.85rem;color:var(--texte-doux)">${idx===0?"Votre commande a bien été reçue — elle sera prise en charge dans un instant.":idx===1?"C'est parti, votre commande est en préparation !":idx===2?"Votre commande est prête 🎉":"Bonne dégustation ! Merci de votre visite."}</p>`}
+          <p style="margin-top:22px;font-size:.85rem;color:var(--texte-doux)">${T(idx===0?"Votre commande a bien été reçue — elle sera prise en charge dans un instant.":idx===1?"C'est parti, votre commande est en préparation !":idx===2?"Votre commande est prête 🎉":"Bonne dégustation ! Merci de votre visite.")}</p>`}
     </div>`;
-  foot.innerHTML=`<button class="btn btn-full" onclick="newOrder()">Nouvelle commande</button>`;
+  foot.innerHTML=`<button class="btn btn-full" onclick="newOrder()">${T("Nouvelle commande")}</button>`;
   if(!pollTimer){ pollSuivi(); pollTimer=setInterval(pollSuivi,8000); }
 }
 async function pollSuivi(){
@@ -794,7 +720,7 @@ const escH = v => String(v).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"
 function toast(msg, opts={}){
   const t = document.getElementById("toast");
   const kind = opts.kind || (/échoué|indisponible|erreur|oups/i.test(msg) ? "err" : "info");
-  const label = kind==="add" ? "Ajouté au panier" : kind==="err" ? "Oups" : "Info";
+  const label = T(kind==="add" ? "Ajouté au panier" : kind==="err" ? "Oups" : "Info");
   const dur = opts.duration || (kind==="err" ? 4000 : 2600);
   t.className = "toast" + (kind==="err" ? " err" : "");
   t.style.setProperty("--t-dur", dur+"ms");
@@ -811,8 +737,41 @@ document.getElementById("burgerBtn").onclick=()=>document.getElementById("navLin
 document.querySelectorAll(".nav-links a").forEach(a=>a.addEventListener("click",()=>document.getElementById("navLinks").classList.remove("open")));
 window.addEventListener("resize",renderCartUI);
 
+applyStaticI18n();
 renderMenu();
 renderCartUI();
+loadMenuOverrides();
+
+function setLang(l){
+  LANG = l;
+  try{ localStorage.setItem("mm_lang", l); }catch(e){}
+  applyStaticI18n();
+  renderMenu(); renderCartUI();
+  if(document.getElementById("drawer").classList.contains("open")){
+    if(drawerMode==="suivi" && currentOrder) renderSuivi(lastStatus); else renderDrawer();
+  }
+}
+
+/* Applique les modifications du Super Admin (prix, noms, articles masqués) */
+async function loadMenuOverrides(){
+  if(!db) return;
+  try{
+    const {data, error} = await db.from("mister_m_menu_overrides").select("item_key,name,price,variant_prices,description,hidden");
+    if(error || !data) return;           // table absente ou réseau : la carte par défaut reste affichée
+    MENU_VIEW = applyMenuOverrides(MENU, data, false);
+    renderMenu();
+    // Resynchronise le panier : prix à jour, articles masqués ou renommés retirés
+    const prices = {};
+    MENU_VIEW.forEach(c=>c.groups.forEach(g=>g.items.forEach(it=>{
+      if(it.v) it.v.forEach(x=>{ prices[it.n+" ("+x.l+")"] = x.p; });
+      else if(it.p!=null) prices[it.n] = it.p;
+    })));
+    const before = cart.length;
+    cart = cart.filter(l=>prices[l.name]!==undefined).map(l=>({...l, price: prices[l.name]}));
+    save(); renderCartUI();
+    if(cart.length < before) toast(T("Votre panier a été mis à jour selon la carte du jour."));
+  }catch(e){ console.warn("Carte : modifications non chargées", e); }
+}
 </script>
 </body>
 </html>
