@@ -221,10 +221,42 @@ section{padding:90px 20px}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 5px rgba(200,162,75,.22)}50%{box-shadow:0 0 0 10px rgba(200,162,75,.08)}}
 
 /* ---------- Toast ---------- */
-.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--noir);color:var(--creme);padding:14px 26px;border-radius:999px;font-size:.88rem;font-weight:500;z-index:200;opacity:0;transition:.35s;box-shadow:var(--ombre-forte);border:1px solid rgba(200,162,75,.4);max-width:90vw;text-align:center}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-/* Bouton panier flottant mobile */
+.toast{position:fixed;top:86px;right:22px;z-index:200;width:min(340px,calc(100vw - 32px));display:flex;align-items:center;gap:14px;background:linear-gradient(150deg,#1d1b19,var(--noir));color:var(--creme);padding:14px 16px 16px;border-radius:16px;border:1px solid rgba(200,162,75,.35);box-shadow:0 20px 50px rgba(0,0,0,.45);overflow:hidden;opacity:0;pointer-events:none;transform:translateX(calc(100% + 40px)) scale(.96)}
+.toast.show{animation:toastIn .55s cubic-bezier(.2,1.3,.4,1) forwards;pointer-events:auto}
+.toast.hide{animation:toastOut .35s ease-in forwards}
+@keyframes toastIn{0%{opacity:0;transform:translateX(calc(100% + 40px)) scale(.96)}100%{opacity:1;transform:none}}
+@keyframes toastOut{0%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-14px) scale(.97)}}
+.toast::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--or)}
+.toast.err::before{background:var(--rouge)}
+.t-ico{flex-shrink:0;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:rgba(200,162,75,.14);border:1px solid rgba(200,162,75,.45);color:var(--or-clair)}
+.toast.err .t-ico{background:rgba(179,64,46,.15);border-color:rgba(179,64,46,.5);color:#e58a78}
+.t-ico svg{width:20px;height:20px}
+.t-ico .chk{stroke-dasharray:24;stroke-dashoffset:24}
+.toast.show .t-ico .chk{animation:drawChk .45s .25s ease-out forwards}
+@keyframes drawChk{to{stroke-dashoffset:0}}
+.toast.show .t-ico{animation:icoPop .5s .15s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes icoPop{0%{transform:scale(.4)}100%{transform:scale(1)}}
+.t-body{flex:1;min-width:0}
+.t-body small{display:block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--or-clair);margin-bottom:3px}
+.toast.err .t-body small{color:#e58a78}
+.t-body b{display:block;font-family:'Oswald',sans-serif;font-weight:500;font-size:1rem;letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t-body span{font-size:.82rem;color:rgba(246,242,233,.7)}
+.t-price{flex-shrink:0;font-family:'Oswald',sans-serif;color:var(--or-clair);font-size:.95rem}
+.t-bar{position:absolute;left:0;bottom:0;height:3px;width:100%;background:linear-gradient(90deg,var(--or),var(--or-clair));transform-origin:left}
+.toast.show .t-bar{animation:tBar var(--t-dur,2.6s) linear forwards}
+.toast.err .t-bar{background:var(--rouge)}
+@keyframes tBar{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+.cart-btn.bump,.fab.bump{animation:bump .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes bump{0%{transform:scale(1)}35%{transform:scale(1.14)}100%{transform:scale(1)}}
+.add-mini.pop{animation:addPop .45s cubic-bezier(.2,1.6,.4,1)}
+@keyframes addPop{0%{transform:scale(1)}30%{transform:scale(.8)}65%{transform:scale(1.2)}100%{transform:scale(1)}}
+.plus-one{position:fixed;z-index:210;pointer-events:none;font-family:'Oswald',sans-serif;font-weight:600;color:var(--noir);background:var(--or);border-radius:999px;padding:3px 9px;font-size:.8rem;box-shadow:0 6px 18px rgba(0,0,0,.3);animation:plusUp .8s ease-out forwards}
+@keyframes plusUp{0%{opacity:0;transform:translate(-50%,0) scale(.6)}20%{opacity:1;transform:translate(-50%,-10px) scale(1.05)}100%{opacity:0;transform:translate(-50%,-46px) scale(.9)}}
+@media(max-width:820px){.toast{top:auto;bottom:90px;right:50%;transform:translate(50%,40px);}
+  .toast.show{animation-name:toastInM}.toast.hide{animation-name:toastOutM}
+  @keyframes toastInM{0%{opacity:0;transform:translate(50%,40px) scale(.96)}100%{opacity:1;transform:translate(50%,0)}}
+  @keyframes toastOutM{0%{opacity:1;transform:translate(50%,0)}100%{opacity:0;transform:translate(50%,20px) scale(.97)}}}
+@media(prefers-reduced-motion:reduce){.toast.show,.toast.hide,.cart-btn.bump,.fab.bump,.add-mini.pop,.plus-one{animation-duration:.01s!important}.toast.show{opacity:1;transform:none}}
 .fab{position:fixed;bottom:22px;right:22px;z-index:80;background:var(--noir);color:var(--or-clair);border-radius:999px;padding:15px 22px;display:none;align-items:center;gap:10px;font-weight:600;box-shadow:var(--ombre-forte);border:1px solid rgba(200,162,75,.4);font-size:.9rem}
 .fab.visible{display:flex}
 </style>
@@ -587,7 +619,18 @@ function addToCart(name, price){
   if(line) line.qty++;
   else cart.push({name, price, qty:1});
   save(); renderCartUI();
-  toast(`« ${name} » ajouté au panier ☕`);
+  const q = cart.find(l=>l.name===name).qty;
+  toast(name, {kind:"add", sub: q>1 ? `Quantité : ${q}` : "Bon appétit ☕", price: fmt(price)});
+  // micro-animations : bouton « + », bulle +1, panier
+  const ev = window.event, btn = ev && ev.target && ev.target.closest && ev.target.closest(".add-mini, button");
+  if(btn){
+    btn.classList.remove("pop"); void btn.offsetWidth; btn.classList.add("pop");
+    const r = btn.getBoundingClientRect(), b = document.createElement("span");
+    b.className = "plus-one"; b.textContent = "+1";
+    b.style.left = (r.left + r.width/2) + "px"; b.style.top = (r.top - 6) + "px";
+    document.body.appendChild(b); setTimeout(()=>b.remove(), 850);
+  }
+  document.querySelectorAll(".cart-btn, #fab").forEach(c=>{ c.classList.remove("bump"); void c.offsetWidth; c.classList.add("bump"); });
 }
 function changeQty(i,delta){
   cart[i].qty+=delta;
@@ -741,12 +784,28 @@ function newOrder(){
 }
 
 /* ---------------- Divers ---------------- */
-let toastTimer=null;
-function toast(msg){
-  const t=document.getElementById("toast");
-  t.textContent=msg; t.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>t.classList.remove("show"),2600);
+let toastTimer=null, toastHideTimer=null;
+const T_ICO = {
+  add:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path class="chk" d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  err:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 7v6"/><circle cx="12" cy="17" r=".6" fill="currentColor"/><circle cx="12" cy="12" r="9.5" stroke-width="1.6"/></svg>',
+  info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".6" fill="currentColor"/><circle cx="12" cy="12" r="9.5" stroke-width="1.6"/></svg>'
+};
+const escH = v => String(v).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function toast(msg, opts={}){
+  const t = document.getElementById("toast");
+  const kind = opts.kind || (/échoué|indisponible|erreur|oups/i.test(msg) ? "err" : "info");
+  const label = kind==="add" ? "Ajouté au panier" : kind==="err" ? "Oups" : "Info";
+  const dur = opts.duration || (kind==="err" ? 4000 : 2600);
+  t.className = "toast" + (kind==="err" ? " err" : "");
+  t.style.setProperty("--t-dur", dur+"ms");
+  t.innerHTML = `<div class="t-ico">${T_ICO[kind]||T_ICO.info}</div>
+    <div class="t-body"><small>${label}</small>${kind==="add" ? `<b>${escH(msg)}</b><span>${escH(opts.sub||"")}</span>` : `<span style="color:var(--creme);font-size:.88rem">${escH(msg)}</span>`}</div>
+    ${opts.price ? `<div class="t-price">${escH(opts.price)}</div>` : ""}
+    <div class="t-bar"></div>`;
+  void t.offsetWidth; t.classList.add("show");
+  clearTimeout(toastTimer); clearTimeout(toastHideTimer);
+  toastTimer = setTimeout(()=>{ t.classList.remove("show"); t.classList.add("hide");
+    toastHideTimer = setTimeout(()=>t.classList.remove("hide"), 360); }, dur);
 }
 document.getElementById("burgerBtn").onclick=()=>document.getElementById("navLinks").classList.toggle("open");
 document.querySelectorAll(".nav-links a").forEach(a=>a.addEventListener("click",()=>document.getElementById("navLinks").classList.remove("open")));
